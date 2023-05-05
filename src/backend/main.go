@@ -9,7 +9,7 @@ import (
 func main()  {
 	r := gin.Default()
 	model.ConnectDatabase()
-	
+	// r.GET("/", _) should bring to landing page/chat page
 	r.GET("/chats", chatcontroller.Index)
 	r.GET("/chat/:id", chatcontroller.Show)
 	r.POST("/chat", chatcontroller.Create)
