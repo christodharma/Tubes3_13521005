@@ -1,36 +1,58 @@
 package StringMatching
+// package main
 
-func kmpMatch(text, pattern string) int {
-    textLength, patternLength := len(text), len(pattern)
-    fail := computeFail(pattern)
-    i, j := 0, 0
-    for i < textLength && j < patternLength {
+// import ("fmt")
+
+func KMPMatch(pattern string, text string) []int {
+    m := len(pattern)
+    n := len(text)
+
+    // Compute the longest prefix suffix array for the pattern
+    lps := make([]int, m)
+    j := 0
+    for i := 1; i < m; i++ {
+        for j > 0 && pattern[j] != pattern[i] {
+            j = lps[j-1]
+        }
+        if pattern[j] == pattern[i] {
+            j++
+        }
+        lps[i] = j
+    }
+
+    // Use the lps array to perform the pattern search
+    result := []int{}
+    i := 0
+    j = 0
+    for i < n {
         if pattern[j] == text[i] {
             i++
             j++
-        } else if j > 0 {
-            j = fail[j-1]
-        } else {
-            i++
+        }
+        if j == m {
+            result = append(result, i-j)
+            j = lps[j-1]
+        } else if i < n && pattern[j] != text[i] {
+            if j != 0 {
+                j = lps[j-1]
+            } else {
+                i++
+            }
         }
     }
-    if j == patternLength {
-        return i - j
-    }
-    return -1
+
+    return result
 }
-// border function
-func computeFail(pattern string) []int {
-    n := len(pattern)
-    fail := make([]int, n)
-    for i, j := 1, 0; i < n; i++ {
-        for j > 0 && pattern[i] != pattern[j] {
-            j = fail[j-1]
-        }
-        if pattern[i] == pattern[j] {
-            j++
-        }
-        fail[i] = j
-    }
-    return fail
-}
+
+// func main(){
+//     pattern := "example"
+//     text := "This is an example text"
+//     result := KMPMatch(pattern, text)
+
+//     if len(result) > 0 {
+//         fmt.Printf("Pattern found at index/indices: %v\n", result)
+//     } else {
+//         fmt.Println("Pattern not found")
+//     }
+// }
+

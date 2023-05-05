@@ -1,6 +1,6 @@
 package StringMatching
 
-func minMulti(nums ...int) int {
+func MinMulti(nums ...int) int {
     if len(nums) == 0 {
         return 0
     }
@@ -13,7 +13,7 @@ func minMulti(nums ...int) int {
     return m
 }
 
-func levenshtein(s, t string) int {
+func Levenshtein(s, t string) int {
     m, n := len(s), len(t)
     if m == 0 {
         return n
@@ -42,7 +42,7 @@ func levenshtein(s, t string) int {
             if s[i-1] == t[j-1] {
                 d[i][j] = d[i-1][j-1]
             } else {
-                d[i][j] = minMulti(
+                d[i][j] = MinMulti(
                     d[i-1][j]+1,   // deletion
                     d[i][j-1]+1,   // insertion
                     d[i-1][j-1]+1, // substitution

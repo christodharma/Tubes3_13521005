@@ -1,54 +1,34 @@
 package StringMatching
 
-import "errors"
-
-func bmMatch(text string, pattern string) (int, error) {
-    last := buildLast(pattern)
+func BMMatch(text string, pattern string) int {
     n := len(text)
     m := len(pattern)
-    i := m - 1
-
-    if i > n-1 {
-        return -1, errors.New("pattern is longer than text")
+    if m == 0 {
+        return 0
     }
-
-    j := m - 1
-
-    for i <= n-1 {
-        if pattern[j] == text[i] {
-            if j == 0 {
-                return i, nil
-            }
+    if n < m {
+        return -1
+    }
+    skip := make(map[rune]int)
+    for k := range pattern {
+        skip[rune(pattern[k])] = k
+    }
+    k := m - 1
+    for k < n {
+        j := m - 1
+        i := k
+        for j >= 0 && text[i] == pattern[j] {
             i--
             j--
+        }
+        if j == -1 {
+            return i + 1
+        }
+        if skip[rune(text[k])] >= 0 {
+            k += m - skip[rune(text[k])] - 1
         } else {
-            lo := last[text[i]]
-            i += m - min(j, 1+lo)
-            j = m - 1
+            k += m
         }
     }
-
-    return -1, nil
-}
-
-func buildLast(pattern string) []int {
-    last := make([]int, 256) // assume ASCII character set
-    m := len(pattern)
-
-    for i := 0; i < 256; i++ {
-        last[i] = -1
-    }
-
-    for i := 0; i < m; i++ {
-        last[pattern[i]] = i
-    }
-
-    return last
-}
-
-func min(a, b int) int {
-    if a < b {
-        return a
-    }
-    return b
+    return -1
 }
