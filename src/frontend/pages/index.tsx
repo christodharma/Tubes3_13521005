@@ -14,7 +14,7 @@ const Home = () => {
   const history = [
     {
       id: 1,
-      message: 'Hello',
+      message: 'Hei',
     },
     {
       id: 2,
@@ -22,21 +22,36 @@ const Home = () => {
     },
     {
       id: 3,
-      message: 'How are you?',
+      message: 'test',
     },
     {
       id: 4,
-      message: 'I am fine, thank you',
+      message: 'test',
     }
   ]
-
+  const masuk = async() => {
+    const res = await fetch('http://localhost:8080/chat', {
+  method: 'POST',
+  headers: { 
+    'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': '*'
+  },
+  body:  JSON.stringify({ content: inputText})
+})
+  .then(response => response.json())
+  .then(data => console.log(data))
+  .catch(error => console.error(error))
+  console.log(res)
+  }
   const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputText((event.target as HTMLInputElement).value);
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setMessages([...messages, inputText]);
+    // setMessages([...messages, inputText]);
+    messages.push(inputText)
+    masuk()
     setInputText('');
   };
 
@@ -108,6 +123,7 @@ const Home = () => {
       </div>
     </div>
   );
+  
 };
 
 export default Home;
