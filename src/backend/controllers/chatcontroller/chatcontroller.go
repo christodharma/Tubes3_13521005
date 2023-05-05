@@ -51,9 +51,7 @@ func TextInput(c *gin.Context) {
 	}
 	var question []string
 	dbRaw := model.DB.Raw("SELECT question FROM CHATS").Scan(&question)
-	var answer []string
-	dbAnswerRaw := model.DB.Raw("SELECT question FROM CHATS").Scan(&answer)
-	if dbRaw.Error != nil || dbAnswerRaw.Error != nil{
+	if dbRaw.Error != nil{
 		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"message" : dbRaw.Error.Error()})
 		return
 	}
@@ -62,8 +60,8 @@ func TextInput(c *gin.Context) {
 		if AlgoType {
 			kmpRet := StringMatching.KMPMatch(str, input.content)
 			fmt.Println(kmpRet)
-			if len(kmpRet) > 0 {
-				c.JSON(http.StatusOK, gin.H{"text": input.content, "reply" : str, "kmpRet" : kmpRet[0]})
+			if kmpRet != -1 {
+				c.JSON(http.StatusOK, gin.H{"text": input.content, "reply" : str, "kmpRet" : kmpRet})
 				return
 			}
 		} else {
@@ -81,8 +79,6 @@ func TextInput(c *gin.Context) {
     abandonHope := model.DB.Where("question LIKE ?", "%"+input.content+"%").Find(&chats)
 	if abandonHope.Error != nil {
 		c.JSON(http.StatusOK, gin.H{"text": input.content, "reply" : "Did not find an answer"})
-	} else {
-		c.JSON(http.StatusOK, gin.H{"text": input.content, "reply" : abandonHope})
 	}
 }
 func Create(c *gin.Context) {
