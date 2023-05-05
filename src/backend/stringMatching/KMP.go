@@ -3,46 +3,55 @@ package StringMatching
 
 // import ("fmt")
 
-func KMPMatch(pattern string, text string) []int {
-    m := len(pattern)
+func KMPMatch(text string, pattern string) int {
     n := len(text)
-
-    // Compute the longest prefix suffix array for the pattern
-    lps := make([]int, m)
-    j := 0
-    for i := 1; i < m; i++ {
-        for j > 0 && pattern[j] != pattern[i] {
-            j = lps[j-1]
-        }
-        if pattern[j] == pattern[i] {
-            j++
-        }
-        lps[i] = j
+    m := len(pattern)
+    if m == 0 {
+        return -1
     }
-
-    // Use the lps array to perform the pattern search
-    result := []int{}
+    fail := computeFail(pattern)
     i := 0
-    j = 0
+    j := 0
     for i < n {
         if pattern[j] == text[i] {
+            if j == m-1 {
+                return i - m + 1 // match
+            }
             i++
             j++
-        }
-        if j == m {
-            result = append(result, i-j)
-            j = lps[j-1]
-        } else if i < n && pattern[j] != text[i] {
-            if j != 0 {
-                j = lps[j-1]
-            } else {
-                i++
-            }
+        } else if j > 0 {
+            j = fail[j-1]
+        } else {
+            i++
         }
     }
-
-    return result
+    return -1 // no match
 }
+
+func computeFail(pattern string) []int {
+    m := len(pattern)
+    if m == 0 {
+        return []int{}
+    }
+    fail := make([]int, m)
+    fail[0] = 0
+    j := 0
+    i := 1
+    for i < m {
+        if pattern[j] == pattern[i] {
+            fail[i] = j + 1 // j+1 chars match
+            i++
+            j++
+        } else if j > 0 { // j follows matching prefix
+            j = fail[j-1]
+        } else { // no match
+            fail[i] = 0
+            i++
+        }
+    }
+    return fail
+}
+
 
 // func main(){
 //     pattern := "example"
