@@ -28,9 +28,10 @@ func Show(c *gin.Context) {
 			c.AbortWithStatusJSON(http.StatusNotFound, gin.H{"message": "Data tidak ditemukan"})
 			return
 		default: 
-			c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"message" : err})
+			c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"message" : err.Error()})
 		}
 	}
+	c.JSON(http.StatusOK, gin.H{"Chat": chat})
 }
 func Create(c *gin.Context) {
 	var chat model.Chat

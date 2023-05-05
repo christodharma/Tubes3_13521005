@@ -1,26 +1,40 @@
-CREATE TABLE chat (
-  chat_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  question TEXT,
-  answer TEXT
-);
-
-CREATE TABLE history (
-  history_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  content TEXT,
-  fromUser TINYINT(1),
-  created_at TIMESTAMP DEFAULT NOW()
-);
-
-
-
-INSERT INTO chat (question, answer) VALUES
-('What is your name?', 'My name is ChatTMBOK.'),
-('How old are you?', 'I am a computer program, so I do not have an age.'),
-('What can you do?', 'I can answer your questions and have a conversation with you.'),
-('What is the meaning of life?', 'That is a philosophical question that people have been pondering for centuries.'),
-('Do you have any hobbies?', 'As an AI chatbot, I do not have any hobbies, but I am always ready to help you.'),
-('What is your favorite color?', 'As a chatbot, I do not have a favorite color. What is your favorite color?'),
-('How can I contact you?', 'You can reach me here or send an email to support@chatbot.com.'),
-('What do you think of artificial intelligence?', 'As an AI chatbot, I am a big fan of artificial intelligence and its potential to change the world.'),
-('What is the best programming language?', 'That depends on what you want to use it for. There is no single "best" programming language.'),
-('What is your favorite food?', 'As an AI chatbot, I do not have a favorite food. But what is your favorite food?');
+INSERT INTO chats (chat_id, question, answer) VALUES
+(1, 'Apa ibukota Indonesia?', 'Ibukota Indonesia adalah Jakarta'),
+(201, 'Apa mata kuliah IF semester 4 yang paling seru?', 'Yang paling seru adalah STIMA tentunya :D'),
+(202, 'Tambah pertanyaan x dengan jawaban y', 'pertanyaan x telah ditambah'),
+(203, 'Tambah pertanyaan x dengan jawaban x', 'Pertanyaan x sudah ada! jawaban di update ke z'),
+(204, 'Hapus pertanyaan x', 'Pertanyaan x telah dihapus'),
+(205, 'Hapus pertanyaan y', 'Tidak ada pertanyaan di database!'),
+(206, 'Apa ibukota Albania?', 'Ibukota Albania adalah Tirana'),
+(207, 'Apa ibukota Algeria?', 'Ibukota Algeria adalah Algiers'),
+(2, 'Apa ibukota Andorra?', 'Ibukota Andorra adalah Andorra la Vella'),
+(3, 'Apa ibukota Angola?', 'Ibukota Angola adalah Luanda'),
+(4, 'Apa ibukota Antigua dan Barbuda?', 'Ibukota Antigua dan Barbuda adalah Saint Johns'),
+(5, 'Apa ibukota Arab Saudi?', 'Ibukota Arab Saudi adalah Riyadh'),
+(6, 'Apa ibukota Argentina?', 'Ibukota Argentina adalah Buenos Aires'),
+(7, 'Apa ibukota Armenia?', 'Ibukota Armenia adalah Yerevan'),
+(8, 'Apa ibukota Australia?', 'Ibukota Australia adalah Canberra'),
+(9, 'Apa ibukota Austria?', 'Ibukota Austria adalah Vienna'),
+(10, 'Apa ibukota Azerbaijan?', 'Ibukota Azerbaijan adalah Baku'),
+(11, 'Apa ibukota Bahama?', 'Ibukota Bahama adalah Nassau'),
+(12, 'Apa ibukota Bahrain?', 'Ibukota Bahrain adalah Manama'),
+(13, 'Apa ibukota Argentina?', 'Ibukota Argentina adalah Buenos Aires'),
+(14, 'Apa ibukota Brazil?', 'Ibukota Brazil adalah Brasilia'),
+(15, 'Apa ibukota China?', 'Ibukota China adalah Beijing'),
+(16, 'Apa ibukota Denmark?', 'Ibukota Denmark adalah Copenhagen'),
+(17, 'Apa ibukota Egypt?', 'Ibukota Egypt adalah Cairo'),
+(18, 'Apa ibukota Finlandia?', 'Ibukota Finlandia adalah Helsinki'),
+(19, 'Apa ibukota Jerman?', 'Ibukota Jerman adalah Berlin'),
+(21, 'Apa ibukota Korea Selatan?', 'Ibukota Korea Selatan adalah Seoul'),
+(22, 'Apa ibukota Lebanon?', 'Ibukota Lebanon adalah Beirut'),
+(23, 'Apa ibukota Maroko?', 'Ibukota Maroko adalah Rabat'),
+(24, 'Apa ibukota Norwegia?', 'Ibukota Norwegia adalah Oslo'),
+(25, 'Apa ibukota Peru?', 'Ibukota Peru adalah Lima'),
+(26, 'Apa ibukota Qatar?', 'Ibukota Qatar adalah Doha'),
+(27, 'Apa ibukota Rusia?', 'Ibukota Rusia adalah Moscow'),
+(28, 'Apa ibukota Swedia?', 'Ibukota Swedia adalah Stockholm'),
+(29, 'Apa ibukota Tunisia?', 'Ibukota Tunisia adalah Tunis'),
+(30, 'Apa ibukota Ukraina?', 'Ibukota Ukraina adalah Kyiv'),
+(31, 'Apa ibukota Venezuela?', 'Ibukota Venezuela adalah Caracas'),
+(32, 'Apa ibukota Yaman?', 'Ibukota Yaman adalah Sanaa'),
+(33, 'Apa ibukota Zambia?', 'Ibukota Zambia adalah Lusaka')
